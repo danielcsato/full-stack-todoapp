@@ -32,6 +32,7 @@ app.post('/register', async (req, res) => {
       last_name,
       email: email.toLowerCase(),
       password: encryptedPassword,
+      todos,
     });
 
     const token = jwt.sign({ user_id: user._id, email }, process.env.TOKEN_KEY, {
