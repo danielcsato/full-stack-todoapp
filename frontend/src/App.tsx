@@ -3,14 +3,28 @@ import Dashboard from './screens/Dashboard';
 import Loginboard from './screens/Loginboard';
 import PrivateRoute from './util/PrivateRoute';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    '*': {
+      margin: 0,
+      padding: 0,
+    },
+  },
+}));
+
 function App() {
+  const classes = useStyles();
   return (
-    <Router>
-      <Switch>
-        <PrivateRoute path="/" component={Dashboard} exact />
-        <Route path="/login" component={Loginboard} />
-      </Switch>
-    </Router>
+    <div className={classes.root}>
+      <Router>
+        <Switch>
+          <PrivateRoute path="/" component={Dashboard} exact />
+          <Route path="/login" component={Loginboard} />
+        </Switch>
+      </Router>
+    </div>
   );
 }
 
