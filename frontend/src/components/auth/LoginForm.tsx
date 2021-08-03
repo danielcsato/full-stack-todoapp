@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
-import { TextField, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { TextField, Button, Snackbar } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../../Redux/auth/LoginAction';
 import axios from 'axios';
+import { API_URL } from '../../util/configFile';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({});
+  const [open, setOpen] = useState(false);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     axios
-      .post('http://localhost:4001/login', formData)
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
+      .post(`${API_URL}/login`, formData)
+      .then(() => {
+        dispatch(login());
+        history.push('/');
+      })
+      .catch(() => setOpen(true));
   };
 
   return (
@@ -37,7 +47,9 @@ const LoginForm = () => {
         id="password"
         onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
       />
-
+      <Snackbar open={open} autoHideDuration={2000} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+        <Alert severity="error">Login failed!</Alert>
+      </Snackbar>
       <Button type="submit" fullWidth variant="contained" color="primary">
         Sign In
       </Button>

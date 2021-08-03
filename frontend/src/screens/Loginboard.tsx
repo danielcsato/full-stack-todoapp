@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import RegisterForm from '../components/auth/RegisterForm';
 import LoginForm from '../components/auth/LoginForm';
-
+import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { RootStore } from '../Redux/Store';
+import { LoginScreen, RegisterScreen } from '../Redux/auth/LoginAction';
 
 const useStyles = makeStyles(() => ({
   board: {
@@ -20,28 +22,25 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Loginboard = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const [comp, setComp] = useState('');
-
-  const handleChooseForm = (form: string) => {
-    setComp(form);
-  };
+  const screen = useSelector((state: RootStore) => state.screen);
 
   return (
     <div className={classes.board}>
-      {comp === '' && (
+      {screen === '' && (
         <div className={classes.box}>
-          <Button variant="contained" color="primary" onClick={() => handleChooseForm('login')}>
+          <Button variant="contained" color="primary" onClick={() => dispatch(LoginScreen())}>
             Login
           </Button>
-          <Button variant="contained" color="secondary" onClick={() => handleChooseForm('register')}>
+          <Button variant="contained" color="secondary" onClick={() => dispatch(RegisterScreen())}>
             Register
           </Button>
         </div>
       )}
 
-      {comp === 'login' && <LoginForm />}
-      {comp === 'register' && <RegisterForm />}
+      {screen === 'LOGIN' && <LoginForm />}
+      {screen === 'REGISTER' && <RegisterForm />}
     </div>
   );
 };
