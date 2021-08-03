@@ -5,8 +5,6 @@
   * create ui
   * connect to backend
 
-# Working routes
-
 ### Create a user
 ```http
 POST /register
@@ -31,3 +29,9 @@ POST /login
   "password": string 
 }
 ```
+
+| Status Code | Description |
+| :--- | :--- |
+| 200 | `OK` |
+| 400 | `BAD REQUEST` |
+| 404 | `NOT FOUND` |
