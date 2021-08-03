@@ -1,6 +1,4 @@
-# full-stack-todoapp
- 
-### Todos
+# Todos
 * swagger ui
 * backend 
   * create routes for todos
@@ -8,9 +6,9 @@
   * create ui
   * connect to backend
 
-### Working routes
+# Working routes
 
-# Create a user
+### Create a user
 POST http://localhost:4001/register
 
 {   
@@ -20,7 +18,7 @@ POST http://localhost:4001/register
     "password": string
 }
 
-# Login
+### Login
 
 POST http://localhost:4001/login
 
