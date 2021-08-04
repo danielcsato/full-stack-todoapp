@@ -14,26 +14,29 @@ const app = express();
 app.use(express.json({ limit: '50mb' }));
 app.use(cors());
 
-app.post('/todo/add', (req, res) => {
-  const { task, done, id } = req.body;
-  const newTask = new Todo_model({
-    task,
-    done,
-    id,
-  });
-  
-  newTask
-    .save()
-    .then(() => res.status(409).send('Todo created'))
-    .catch((err) => console.log(err));
+app.post('/todo/add', auth, async (req, res) => {
+  try {
+    const { done, id, todo } = req.body;
+    const newTodo = await Todo_model.create({
+      todo,
+      done,
+      id,
+    });
+
+    res.status(201).json(newTodo);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-app.post('/todo/delete', (req, res) => {
-  const id = req.body.id;
-
-  Todo.findOneAndRemove({ id: id }, (err) => {
-    if (err) console.log(err);
-  });
+app.post('/todo/delete', async (req, res) => {
+  try {
+    const { id } = req.body;
+    Todo.findOneAndRemove({ id: id });
+    res.status(201).send('todo deleted');
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.post('/register', async (req, res) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { ListItem, ListItemIcon, Checkbox, ListItemText, IconButton } from '@material-ui/core';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
 
-const Todo = () => {
+const Todo: React.FC = ({}) => {
   return (
     <ListItem role={undefined} dense button>
       <ListItemIcon>

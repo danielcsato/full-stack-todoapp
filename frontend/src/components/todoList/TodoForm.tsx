@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
+import { v4 as uuidv4 } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { API_URL } from '../../util/configFile';
 import TodoList from './TodoList';
 import axios from 'axios';
 
-const TodoForm = () => {
+const TodoForm: React.FC = () => {
   const [name, setName] = useState('');
   const classes = useStyles();
+  const token = window.sessionStorage.getItem('user');
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    /*  event.preventDefault();
+    event.preventDefault();
+
+    const formData = { todo: name, done: false, id: uuidv4() };
+    const config = {
+      headers: {
+        'x-access-token': `${token}`,
+      },
+    };
     axios
-      .post(`${API_URL}/login`, formData)
-      .then(() => {})
-      .catch(() => setOpen(true)); */
+      .post(`${API_URL}/todo/add`, formData, config)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (

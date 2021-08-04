@@ -20,7 +20,7 @@ const LoginForm = () => {
       .then((res) => {
         dispatch(login());
         console.log(JSON.stringify(res.data));
-        window.sessionStorage.setItem('user', JSON.stringify(res.data));
+        window.sessionStorage.setItem('user', res.data.token);
         history.push('/');
       })
       .catch(() => setOpen(true));

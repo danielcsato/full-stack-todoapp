@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { RootStore } from '../Redux/Store';
 import { LoginScreen, RegisterScreen } from '../Redux/auth/LoginAction';
 
-const Loginboard = () => {
+const Loginboard: React.FC = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const screen = useSelector((state: RootStore) => state.screen);

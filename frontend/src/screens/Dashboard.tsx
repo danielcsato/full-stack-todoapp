@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 import TodoForm from '../components/todoList/TodoForm';
 import { useHistory } from 'react-router-dom';
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   const history = useHistory();
 
   const handleLogout = () => {
