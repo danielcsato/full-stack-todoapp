@@ -13,7 +13,7 @@ const PrivateRoute: React.FC<{
   return isLogged || window.sessionStorage.getItem('user') ? (
     <Route path={path} exact={exact} component={component} />
   ) : (
-    <Redirect to="/login" />
+    <Redirect to="/auth" />
   );
 };
 export default PrivateRoute;
