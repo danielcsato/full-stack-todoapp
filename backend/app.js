@@ -6,12 +6,35 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 
 const User = require('./model/user');
+const Todo_model = require('./model/todo');
 const auth = require('./middleware/auth');
 
 const app = express();
 
 app.use(express.json({ limit: '50mb' }));
 app.use(cors());
+
+app.post('/todo/add', (req, res) => {
+  const { task, done, id } = req.body;
+  const newTask = new Todo_model({
+    task,
+    done,
+    id,
+  });
+  
+  newTask
+    .save()
+    .then(() => res.status(409).send('Todo created'))
+    .catch((err) => console.log(err));
+});
+
+app.post('/todo/delete', (req, res) => {
+  const id = req.body.id;
+
+  Todo.findOneAndRemove({ id: id }, (err) => {
+    if (err) console.log(err);
+  });
+});
 
 app.post('/register', async (req, res) => {
   try {

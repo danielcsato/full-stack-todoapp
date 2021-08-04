@@ -17,8 +17,10 @@ const LoginForm = () => {
     event.preventDefault();
     axios
       .post(`${API_URL}/login`, formData)
-      .then(() => {
+      .then((res) => {
         dispatch(login());
+        console.log(JSON.stringify(res.data));
+        window.sessionStorage.setItem('user', JSON.stringify(res.data));
         history.push('/');
       })
       .catch(() => setOpen(true));

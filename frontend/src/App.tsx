@@ -5,15 +5,6 @@ import PrivateRoute from './util/PrivateRoute';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    '*': {
-      margin: 0,
-      padding: 0,
-    },
-  },
-}));
-
 function App() {
   const classes = useStyles();
   return (
@@ -27,5 +18,14 @@ function App() {
     </div>
   );
 }
+
+const useStyles = makeStyles(() => ({
+  root: {
+    '*': {
+      margin: 0,
+      padding: 0,
+    },
+  },
+}));
 
 export default App;

@@ -10,6 +10,10 @@ const PrivateRoute: React.FC<{
 }> = ({ path, component, exact }) => {
   const isLogged = useSelector((state: RootStore) => state.isLogged);
 
-  return isLogged ? <Route path={path} exact={exact} component={component} /> : <Redirect to="/login" />;
+  return isLogged || window.sessionStorage.getItem('user') ? (
+    <Route path={path} exact={exact} component={component} />
+  ) : (
+    <Redirect to="/login" />
+  );
 };
 export default PrivateRoute;
