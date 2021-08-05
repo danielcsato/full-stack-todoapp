@@ -1,3 +1,7 @@
+####  work in progress
+1. unit tests
+2. handle api call via redux
+
 ### How to start
 
 #### Backend
