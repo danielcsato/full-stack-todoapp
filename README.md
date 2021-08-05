@@ -22,7 +22,7 @@ POST /todo/add
 
 ### delete a todo
 ```http
-delete /:id
+DELETE /:id
 ```
 
 
