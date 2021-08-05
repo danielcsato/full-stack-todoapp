@@ -11,17 +11,18 @@ const TodoForm: React.FC = () => {
   const [todos, setTodos] = useState([]);
 
   const classes = useStyles();
+
   const token = window.sessionStorage.getItem('user');
+  const config = {
+    headers: {
+      'x-access-token': `${token}`,
+    },
+  };
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const formData = { todo: name, done: false, id: uuidv4() };
-    const config = {
-      headers: {
-        'x-access-token': `${token}`,
-      },
-    };
+
     axios
       .post(`${API_URL}/todo/add`, formData, config)
       .then(() => {
@@ -32,11 +33,6 @@ const TodoForm: React.FC = () => {
   };
 
   const fetchTodos = () => {
-    const config = {
-      headers: {
-        'x-access-token': `${token}`,
-      },
-    };
     axios
       .get(`${API_URL}/todos`, config)
       .then((res) => setTodos(res.data))
@@ -61,6 +57,7 @@ const TodoForm: React.FC = () => {
 
   useEffect(() => {
     fetchTodos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

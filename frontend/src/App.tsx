@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 function App() {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <Router>
