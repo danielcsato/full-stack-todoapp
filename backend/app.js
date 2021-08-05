@@ -3,13 +3,69 @@ require('./config/database').connect();
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 
 const User = require('./model/user');
+const Todo_model = require('./model/todo');
 const auth = require('./middleware/auth');
+const todo = require('./model/todo');
 
 const app = express();
 
 app.use(express.json({ limit: '50mb' }));
+app.use(cors());
+
+app.post('/todo/add', auth, async (req, res) => {
+  try {
+    const { done, id, todo } = req.body;
+    const newTodo = await Todo_model.create({
+      todo,
+      done,
+      id,
+    });
+
+    res.status(201).json(newTodo);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get('/todos', auth, (req, res) => {
+  Todo_model.find().exec((err, todos) => {
+    if (err || !todos) {
+      return res.status(400).json({
+        error: 'Something went wrong in finding all todos',
+      });
+    }
+    res.json(todos);
+  });
+});
+
+app.delete('/:id', async (req, res) => {
+  try {
+    const task = await Todo_model.findByIdAndDelete(req.params.id);
+    res.send(task);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+app.post('/todo/:id', (req, res) => {
+  Todo_model.findById(req.params.id, (err, todo) => {
+    if (!todo) res.status(404).send('Couldnt find todo');
+    else {
+      todo.done = !todo.done;
+      todo
+        .save()
+        .then((todo) => {
+          res.json('Todo updated');
+        })
+        .catch((err) => {
+          res.status(400).send('Failed');
+        });
+    }
+  });
+});
 
 app.post('/register', async (req, res) => {
   try {
@@ -66,11 +122,6 @@ app.post('/login', async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-});
-
-app.get('/welcome', auth, (req, res) => {
-  const { email, todos } = req.body;
-  res.status(200).send(`email: ${email}, todos : ${todos}`);
 });
 
 app.use('*', (req, res) => {

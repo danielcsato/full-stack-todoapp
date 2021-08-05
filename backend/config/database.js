@@ -8,7 +8,7 @@ exports.connect = () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
-      useFindAndModify: false,
+      useFindAndModify: true,
     })
     .then(() => {
       console.log('Connected to DB');
