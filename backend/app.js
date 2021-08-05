@@ -124,11 +124,6 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.get('/welcome', auth, (req, res) => {
-  const { email, todos } = req.body;
-  res.status(200).send(`email: ${email}, todos : ${todos}`);
-});
-
 app.use('*', (req, res) => {
   res.status(404).json({
     success: 'false',
