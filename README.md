@@ -1,3 +1,13 @@
+### How to start
+
+#### Backend
+1. npm install
+2. npm run dev
+
+
+#### Frontend
+1. npm install
+2. npm start
 
 
 ### get todos
