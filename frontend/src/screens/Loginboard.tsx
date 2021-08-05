@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import RegisterForm from '../components/auth/RegisterForm';
 import LoginForm from '../components/auth/LoginForm';
 import { useSelector, useDispatch } from 'react-redux';
