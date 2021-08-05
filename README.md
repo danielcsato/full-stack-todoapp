@@ -1,6 +1,7 @@
 ####  work in progress
-1. unit tests
-2. handle api call via redux
+1. write unit tests
+2. configure ci/cd
+3. handle api calls via redux
 
 ### How to start
 
