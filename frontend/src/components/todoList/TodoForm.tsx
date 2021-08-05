@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, TextField } from '@material-ui/core';
 import { v4 as uuidv4 } from 'uuid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,6 +8,8 @@ import axios from 'axios';
 
 const TodoForm: React.FC = () => {
   const [name, setName] = useState('');
+  const [todos, setTodos] = useState([]);
+
   const classes = useStyles();
   const token = window.sessionStorage.getItem('user');
 
@@ -22,9 +24,44 @@ const TodoForm: React.FC = () => {
     };
     axios
       .post(`${API_URL}/todo/add`, formData, config)
-      .then((res) => console.log(res))
+      .then(() => {
+        fetchTodos();
+        setName('');
+      })
       .catch((err) => console.log(err));
   };
+
+  const fetchTodos = () => {
+    const config = {
+      headers: {
+        'x-access-token': `${token}`,
+      },
+    };
+    axios
+      .get(`${API_URL}/todos`, config)
+      .then((res) => setTodos(res.data))
+      .catch((err) => console.log(err));
+  };
+
+  const deleteTodo = (id: string) => {
+    axios
+      .delete(`${API_URL}/${id}`)
+      .then(() => fetchTodos())
+      .catch((err) => console.log(err));
+  };
+
+  const updateTodo = (id: string) => {
+    axios
+      .post(`${API_URL}/todo/${id}`)
+      .then(() => {
+        fetchTodos();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -37,7 +74,7 @@ const TodoForm: React.FC = () => {
             </Button>
           </div>
         </form>
-        <TodoList />
+        <TodoList deleteTodo={deleteTodo} updateTodo={updateTodo} todos={todos} />
       </div>
     </div>
   );
