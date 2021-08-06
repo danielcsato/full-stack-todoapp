@@ -7,7 +7,7 @@ import { login } from '../../Redux/auth/LoginAction';
 import { TextField, Button, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
-const LoginForm = () => {
+const LoginForm: React.FC = () => {
   const [formData, setFormData] = useState({});
   const [open, setOpen] = useState(false);
 

@@ -1,31 +1,24 @@
-import RegisterForm from '../components/auth/RegisterForm';
-import LoginForm from '../components/auth/LoginForm';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { RootStore } from '../Redux/Store';
+import AuthBox from '../components/auth/AuthBox';
 import { LoginScreen, RegisterScreen } from '../Redux/auth/LoginAction';
 
 const Loginboard: React.FC = () => {
-  const dispatch = useDispatch();
   const classes = useStyles();
-  const screen = useSelector((state: RootStore) => state.screen);
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.board}>
-      {screen === '' && (
-        <div className={classes.box}>
-          <Button variant="contained" color="primary" onClick={() => dispatch(LoginScreen())}>
-            Login
-          </Button>
-          <Button variant="contained" color="secondary" onClick={() => dispatch(RegisterScreen())}>
-            Register
-          </Button>
-        </div>
-      )}
-
-      {screen === 'LOGIN' && <LoginForm />}
-      {screen === 'REGISTER' && <RegisterForm />}
+      <div className={classes.box}>
+        <Button variant="contained" color="primary" onClick={() => dispatch(LoginScreen())}>
+          Login
+        </Button>
+        <Button variant="contained" color="secondary" onClick={() => dispatch(RegisterScreen())}>
+          Register
+        </Button>
+      </div>
+      <AuthBox />
     </div>
   );
 };
@@ -34,6 +27,7 @@ const useStyles = makeStyles(() => ({
   board: {
     height: '100vh',
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -41,6 +35,7 @@ const useStyles = makeStyles(() => ({
     width: '250px',
     display: 'flex',
     justifyContent: 'space-between',
+    marginBottom: '25px',
   },
 }));
 
