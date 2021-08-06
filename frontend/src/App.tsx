@@ -5,7 +5,7 @@ import PrivateRoute from './util/PrivateRoute';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-function App() {
+const App: React.FC = () => {
   const classes = useStyles();
 
   return (
@@ -18,7 +18,7 @@ function App() {
       </Router>
     </div>
   );
-}
+};
 
 const useStyles = makeStyles(() => ({
   root: {

@@ -6,7 +6,7 @@ import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import { API_URL } from '../../util/configFile';
 
-const RegisterForm = () => {
+const RegisterForm: React.FC = () => {
   const [formData, setFormData] = useState({});
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
